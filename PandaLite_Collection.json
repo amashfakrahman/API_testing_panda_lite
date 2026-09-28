@@ -1,0 +1,1615 @@
+{
+  "info": {
+    "_postman_id": "b305fc9e-65b2-42f6-af71-cd8cef2b89c2",
+    "name": "Panda Lite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50634179",
+    "_collection_link": "https://go.postman.co/collection/50634179-b305fc9e-65b2-42f6-af71-cd8cef2b89c2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Registration",
+      "item": [
+        {
+          "name": "Registration - Customer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Customer registration test\r\n\r\npm.test(\"Customer registration successful\",()=>{\r\n\r\n    pm.response.to.have.status(201);\r\n\r\n\r\n    if(pm.response.json().id != undefined){\r\n\r\n        pm.collectionVariables.set(\r\n            \"CUSTOMER_ID\",\r\n            pm.response.json().id\r\n        );\r\n\r\n    }\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Ashfak Rahman\",\r\n  \"email\": \"ashfakrahman6@gmail.com\",\r\n  \"password\": \"123456789\",\r\n  \"role\": \"customer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registration - Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Restaurant registration test\r\n\r\npm.test(\"Restaurant registration successful\",()=>{\r\n\r\n    pm.response.to.have.status(201);\r\n\r\n\r\n    if(pm.response.json().id != undefined){\r\n\r\n        pm.collectionVariables.set(\r\n            \"RESTAURANT_USER_ID\",\r\n            pm.response.json().id\r\n        );\r\n\r\n    }\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Dhaka Biryani House\",\r\n  \"email\": \"dhakabiryanihouse@gmail.com\",\r\n  \"password\": \"pass123\",\r\n  \"role\": \"restaurant\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registration - RIder",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Rider registration test\r\n\r\npm.test(\"Rider registration successful\",()=>{\r\n\r\n    pm.response.to.have.status(201);\r\n\r\n\r\n    pm.expect(\r\n        pm.response.json().role\r\n    )\r\n    .to.eql(\"rider\");\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Affan Rahman\",\r\n  \"email\": \"affanrahman7@gmail.com\",\r\n  \"password\": \"pass123\",\r\n  \"role\": \"rider\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registration - Missing field check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Missing fields validation\r\n\r\npm.test(\"Registration missing field check\",()=>{\r\n\r\n    pm.response.to.have.status(400);\r\n\r\n\r\n    pm.expect(\r\n        pm.response.json().error\r\n    )\r\n    .to.eql(\r\n        \"name, email, password and role are required\"\r\n    );\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"\",\r\n  \"email\": \"ashfak@gmail.com\",\r\n  \"password\": \"\",\r\n  \"role\": \"customer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registration - Password length check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Short password should return 400\", function () {\r\n    pm.response.to.have.status(400);\r\n\r\n    pm.expect(jsonData.error).to.eql(\r\n        \"Password must be at least 6 characters long\"\r\n    );\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Ashfak Rahman\",\r\n  \"email\": \"ashfakrahman7@gmail.com\",\r\n  \"password\": \"12345\",\r\n  \"role\": \"customer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registration - Invalid role check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Invalid role validation\r\n\r\npm.test(\"Invalid role check\",()=>{\r\n\r\n\r\n    pm.response.to.have.status(400);\r\n\r\n\r\n    pm.expect(\r\n        pm.response.json().error\r\n    )\r\n    .to.eql(\r\n        \"role must be one of customer, restaurant, rider\"\r\n    );\r\n\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Ashfak Rahman\",\r\n  \"email\": \"ashfak@gmail.com\",\r\n  \"password\": \"pass123\",\r\n  \"role\": \"student\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registration - Invalid email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Invalid email should NOT be accepted\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Invalid email was accepted by the server\"\r\n    ).to.equal(400);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Ashfak Rahman\",\r\n  \"email\": \"ashfak1@gmail.com\",\r\n  \"password\": \"pass123\",\r\n  \"role\": \"customer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "Login - Customer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Customer login\r\n\r\npm.test(\"Customer login successful\",()=>{\r\n\r\n\r\n    pm.response.to.have.status(200);\r\n\r\n\r\n    if(pm.response.json().token != undefined){\r\n\r\n        pm.collectionVariables.set(\r\n            \"CUSTOMER_TOKEN\",\r\n            pm.response.json().token\r\n        );\r\n\r\n    }\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "",
+                "value": "{{json_web_token_0tiq}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"email\":\"ashfakrahman6@gmail.com\",\r\n\"password\":\"123456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login - Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Restaurant login\r\n\r\npm.test(\"Restaurant login successful\",()=>{\r\n\r\n\r\n    pm.response.to.have.status(200);\r\n\r\n\r\n    pm.collectionVariables.set(\r\n        \"RESTAURANT_TOKEN\",\r\n        pm.response.json().token\r\n    );\r\n\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"email\":\"dhakabiryanihouse@gmail.com\",\r\n\"password\":\"pass123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login - Rider",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Rider login\r\n\r\npm.test(\"Rider login successful\",()=>{\r\n\r\n\r\n    pm.response.to.have.status(200);\r\n\r\n\r\n    pm.collectionVariables.set(\r\n        \"RIDER_TOKEN\",\r\n        pm.response.json().token\r\n    );\r\n\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"email\":\"affanrahman7@gmail.com\",\r\n\"password\":\"pass123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login - Empty field check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Empty login validation\r\n\r\npm.test(\"Empty login field check\",()=>{\r\n\r\n\r\n    pm.response.to.have.status(400);\r\n\r\n\r\n    pm.expect(\r\n        pm.response.json().error\r\n    )\r\n    .to.eql(\r\n        \"email and password are required\"\r\n    );\r\n\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"email\": \"\", \"password\": \"pass123\" }\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login - Valid email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Invalid email is rejected successfully\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"Invalid credentials\"\r\n    ).to.be.within(400, 499);\r\n});\r\n\r\n  \r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"email\": \"sjnkjcnkjsdcn\", \"password\": \"pass123\" }\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Restaurant",
+      "item": [
+        {
+          "name": "Restaurants",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Restaurant created successfully\", function () {\r\n    pm.response.to.have.status(201);\r\n\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"name\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Dhaka Biryani House\",\r\n    \"address\": \"House 12, Road 5, Dhanmondi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/restaurants",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "restaurants"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Duplicate restaurant names should not be allowed",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Duplicate restaurant name should NOT be allowed\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Duplicate restaurant name was accepted\"\r\n    ).to.equal(409);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Dhaka Biryani House\",\r\n    \"address\": \"House 12, Road 5, Dhanmondi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/restaurants",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "restaurants"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add menu item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Menu item added successfully\", function () {\r\n    pm.response.to.have.status(201);\r\n\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"name\");\r\n    pm.expect(jsonData).to.have.property(\"price\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Tehari\",\r\n    \"price\": 180,\r\n    \"stockQuantity\": 10\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/restaurants/{{restaurantId}}/menu",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "restaurants",
+                "{{restaurantId}}",
+                "menu"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Only the restaurant owner can update this restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Only restaurant owner can update restaurant\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Non-owner was able to update the restaurant\"\r\n    ).to.equal(403);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"name\": \"Dhaka Biryani House\", \"address\": \"House 12, Road 5, Dhanmondi\", \"isOpen\": true }\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/restaurants/{{restaurantId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Price must be non-negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Negative price or stockQuantity should return 400\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"Expected 400 Bad Request for negative price or stockQuantity\"\r\n    ).to.equal(400);\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"price\": -100\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/menu-items/{{menuItemId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "menu-items",
+                "{{menuItemId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restaurant owner should not have access to place the order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Restaurant account should NOT be able to place an order\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Restaurant account was able to place an order\"\r\n    ).to.equal(403);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{customerToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"restaurantId\": \"{{restaurantId}}\",\r\n    \"items\": [\r\n        {\r\n            \"menuItemId\": \"{{menuItemId}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Order Quantity (Zero, Negative, or Overflow) Causes 500 Internal Server Error",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Invalid quantity must NOT cause 500\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Invalid quantity caused 500 Internal Server Error\"\r\n    ).to.not.equal(500);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{customerToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"restaurantId\": \"{{restaurantId}}\",\r\n    \"items\": [\r\n        {\r\n            \"menuItemId\": \"{{menuItemId}}\",\r\n            \"quantity\": -5\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Customer Rating should be in 1 to 5",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Customer rating must be between 1 and 5\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Rating outside the 1-5 range was accepted\"\r\n    ).to.equal(400);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{customerToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"target\": \"restaurant\",\r\n    \"score\": 0,\r\n    \"comment\": \"Food was excellent\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/rate",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "rate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer"
+      }
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "Accept Order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Order accepted successfully\", function () {\r\n    pm.response.to.have.status(200);\r\n\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData.status).to.equal(\"accepted\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{RESTAURANT_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{RESTAURANT_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"accepted\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/status",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restaurant data is not secure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Menu item added successfully\", function () {\r\n    pm.response.to.have.status(201);\r\n\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData).to.have.property(\"name\");\r\n    pm.expect(jsonData).to.have.property(\"price\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Start Preparing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Order is preparing\",()=>{\r\n\r\npm.response.to.have.status(200);\r\n\r\npm.expect(\r\npm.response.json().status\r\n)\r\n.to.eql(\"preparing\");\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"preparing\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/status",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Ready",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Order ready for pickup\",()=>{\r\n\r\npm.response.to.have.status(200);\r\n\r\npm.expect(\r\npm.response.json().status\r\n)\r\n.to.eql(\"ready_for_pickup\");\r\n\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{restaurantToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{restaurantToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"ready_for_pickup\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/status",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Claimed order can be reclaimed multiple times",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Already claimed order should NOT be claimed again\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Already claimed order was allowed to be claimed again\"\r\n    ).to.equal(409);\r\n\r\n    pm.expect(jsonData.error).to.equal(\r\n        \"Order has already been claimed\"\r\n    );\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{RIDER_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{RIDER_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/claim",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "claim"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Customer can be picked the order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Customer should NOT be able to mark order as picked up\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Customer was able to mark the order as picked up\"\r\n    ).to.equal(403);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{riderToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{riderToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"picked_up\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/status",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Customer can deliver the order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Customer should NOT be able to mark order as delivered\", function () {\r\n    pm.expect(\r\n        pm.response.code,\r\n        \"BUG: Customer was able to mark the order as delivered\"\r\n    ).to.equal(403);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{riderToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{riderToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"delivered\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/status",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancellation fee is invalid",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Cancellation fee should be 50\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(\r\n        jsonData.cancellationFee,\r\n        \"BUG: Incorrect cancellation fee applied\"\r\n    ).to.equal(50);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-STQA-Key",
+                "value": "{{STQA_KEY}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{customerToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"reason\": \"Changed my mind\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/orders/{{orderId}}/cancel",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "health check",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-STQA-Key",
+            "value": "{{STQA_KEY}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/_internal/health",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "_internal",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Inspect database state",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-STQA-Key",
+            "value": "{{STQA_KEY}}",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"users\": [ /* User objects, see Data Models */ ],\r\n  \"restaurants\": [ /* Restaurant objects */ ],\r\n  \"menuItems\": [ /* MenuItem objects */ ],\r\n  \"orders\": [ /* Order objects, each including nested items and timeline */ ],\r\n  \"ratings\": [ /* Rating objects */ ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/_internal/db-state",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "_internal",
+            "db-state"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": ""
+    },
+    {
+      "key": "STQA_KEY",
+      "value": ""
+    },
+    {
+      "key": "CUSTOMER_ID",
+      "value": ""
+    },
+    {
+      "key": "RESTAURANT_USER_ID",
+      "value": ""
+    },
+    {
+      "key": "CUSTOMER_TOKEN",
+      "value": ""
+    },
+    {
+      "key": "RESTAURANT_TOKEN",
+      "value": ""
+    },
+    {
+      "key": "json_web_token_0tiq",
+      "secret": true
+    },
+    {
+      "key": "RIDER_TOKEN",
+      "value": ""
+    },
+    {
+      "key": "ORDER_ID",
+      "value": ""
+    },
+    {
+      "key": "orderId",
+      "value": ""
+    }
+  ]
+}
