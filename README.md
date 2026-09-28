@@ -1,123 +1,105 @@
-# Panda Lite API Collection
-
-A Postman API collection for testing the Panda Lite food delivery platform APIs.
-
-This collection contains API requests for authentication, restaurant management, order processing, health checking, and database inspection.
+# Panda Lite API Testing Collection
 
 ## Overview
 
-Panda Lite is a food delivery system that supports different types of users:
+Panda Lite is a food delivery API system supporting Customer, Restaurant, and Rider roles. This Postman collection tests authentication, restaurant management, menu operations, order lifecycle, ratings, and internal diagnostic endpoints.
 
-- Customer
-- Restaurant
-- Rider
+## Features Tested
 
-The API collection helps developers and testers verify the complete application workflow, starting from user registration and login to restaurant operations and order delivery.
-
-## Features
-
-### Authentication
-
-The authentication module includes:
-
+### Authentication Module
 - Customer registration
 - Restaurant registration
 - Rider registration
-- User login
-- Input validation testing
+- Required field validation
+- Password length validation
+- Invalid role validation
+- Invalid email validation
+- Customer, Restaurant, and Rider login
 
-Available endpoints:
+### Restaurant & Menu Management
+Tested endpoints:
+- POST /restaurants
+- POST /restaurants/{restaurantId}/menu
+- PATCH /restaurants/{restaurantId}
+- PATCH /menu-items/{menuItemId}
 
-POST /auth/register
-POST /auth/login
+Coverage:
+- Restaurant creation
+- Duplicate restaurant validation
+- Menu item creation
+- Owner permission validation
+- Negative price validation
 
-The API uses the following header for authentication:
+### Order Lifecycle Testing
 
-X-STQA-Key
+Workflow:
+Customer places order → Restaurant accepts → Preparing → Ready for pickup → Rider claims → Pickup → Delivery
 
-## Restaurant Management
+Test scenarios:
+- Unauthorized order placement
+- Invalid quantity handling
+- Accept order
+- Start preparing
+- Mark ready for pickup
+- Prevent duplicate claiming
+- Pickup permission validation
+- Delivery permission validation
+- Order cancellation
+- Cancellation fee validation
 
-Restaurant-related API operations include:
+### Rating Testing
+- Rating range validation (1-5)
 
-- Create restaurant
-- Add menu items
-- Manage restaurant actions
-- Handle customer orders
+### Internal Diagnostic Endpoints
 
-Example endpoint:
-
-POST /restaurants
-
-## Order Management Workflow
-
-The collection covers the complete order process:
-
-1. Customer places an order
-2. Restaurant accepts the order
-3. Restaurant starts preparing the order
-4. Restaurant marks the order as ready
-5. Rider claims the order
-6. Rider picks up the order
-7. Rider delivers the order
-8. Customer rates the order
-
-## Health Check
-
-The API includes a health check endpoint to verify server availability.
-
-GET /_internal/health
-
-## Database Inspection
-
-The collection provides an endpoint to inspect the current database state.
-
-GET /_internal/db-state
-
-It can be used to check:
-
-- Users
-- Restaurants
-- Menu items
-- Orders
-- Ratings
+- GET /_internal/health
+- GET /_internal/db-state
 
 ## Environment Variables
 
-Configure these variables in Postman:
-
 | Variable | Description |
-|----------|-------------|
+|---|---|
 | BASE_URL | API base URL |
-| STQA_KEY | API security key |
-| CUSTOMER_TOKEN | Customer authentication token |
-| RIDER_TOKEN | Rider authentication token |
+| STQA_KEY | API authentication key |
+| CUSTOMER_ID | Customer ID |
 | RESTAURANT_USER_ID | Restaurant user ID |
+| CUSTOMER_TOKEN | Customer token |
+| RESTAURANT_TOKEN | Restaurant token |
+| RIDER_TOKEN | Rider token |
 | ORDER_ID | Order ID |
-| MENU_ITEM_ID | Menu item ID |
 
-## How to Use
+## Test Execution
 
-1. Import Panda Lite Collection.json into Postman.
-2. Configure BASE_URL and STQA_KEY.
-3. Run individual requests or the complete collection using Postman Collection Runner.
+1. Open Postman
+2. Import PandaLite_Collection.json
+3. Configure environment variables
+4. Run the collection
+5. Review test results
 
-## Testing
+## Test Coverage
 
-The collection includes Postman test scripts to verify:
+The testing report includes:
+- Test Plan
+- Test Cases
+- Defect Reports
 
-- Response status codes
-- Successful API operations
-- Generated IDs
-- Authentication responses
+Total documented test cases: 30
 
-## Technologies Used
+## Defect Summary
 
-- REST API
-- Postman Collection
-- JSON
-- Bearer Authentication
-- API Testing
+Identified defects include:
+- Password length validation issue
+- Invalid email acceptance
+- Duplicate restaurant creation
+- Negative price handling
+- Unauthorized order access
+- Invalid order quantity server error
+- Data security issue
+- Multiple order claiming issue
+- Unauthorized pickup/delivery
+- Cancellation fee issue
+- Rating validation issue
 
-## License
+## Conclusion
 
-This project is intended for development and testing purposes.
+This collection provides API verification coverage for major Panda Lite workflows and can be used for regression testing, validation, and defect tracking.
